@@ -422,7 +422,7 @@ var resizePizzas = function(size) {
   function changePizzaSizes(size) {
     switch (size) {
         case "1":
-            newSize = 25;
+            newSize = 20;
             break;
         case "2":
             newSize = 30;
@@ -432,9 +432,9 @@ var resizePizzas = function(size) {
             break;
     }
 
-    //* Create a randomPizzas array
+    //randomPizzas array
     var randomPizzas = document.getElementsByClassName('randomPizzaContainer');
-    //* Iterate through the items and change the size
+    //Changes the Pizza size
     var length = randomPizzas.length;
     for (var i = 0; i < length; i++) {
         randomPizzas[i].style.width = newSize + "%";
@@ -454,8 +454,9 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 10; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+//redundancy is reduced by placing outside the loop
+var pizzasDiv = document.getElementById("randomPizzas");
+for (var i = 2; i < 10; i++) { // i value decreased
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -487,7 +488,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   var items = document.querySelectorAll('.mover');
-  scrollVar = (document.body.scrollTop / 1250);
+  scrollVar = (document.body.scrollTop / 1250);//Looping redundancy avoided by placing outside loop
 
   for (var i = 0; i < items.length; i++) {
     items[i].style.left = items[i].basicLeft + 100 * Math.sin((scrollVar) + (i % 5)) + 'px';
@@ -509,7 +510,7 @@ window.addEventListener('scroll', updatePositions);
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 4;//Columns reduced
-  var s = 250; //space between pizzas increased
+  // var s = 256; indvidual Numerical values are indexed so creating a variable s is unneccesary
   var elem;
   var movingPizzas = document.getElementById('movingPizzas1');
   for (var i = 0; i < 12; i++)//reduced the i value
@@ -518,9 +519,9 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
-    elem.style.width = "70px";
+    elem.style.width = "70px"; //Rounded off ;p
     elem.basicLeft = (i % cols) * 300; //Replaced the s with Numeric value
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    elem.style.top = (Math.floor(i/cols) * 200) + 'px';
     movingPizzas.appendChild(elem);
   }
   updatePositions();
